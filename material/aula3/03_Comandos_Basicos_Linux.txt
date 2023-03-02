@@ -1,0 +1,191 @@
+
+
+
+-- Slide 3
+
+admdimdim
+OracleLinux@8
+
+
+-- Slide 5
+
+cat /etc/os-release
+
+
+-- Slide 9
+history -c
+
+
+-- Slide 12
+
+mkdir ex1
+mkdir ex2
+mkdir ex3
+
+cd ex1
+
+mkdir subex1
+
+cd..
+
+cd
+
+
+
+-- Slide 16
+
+ls /usr/bin
+
+
+
+-- Slide 18
+
+
+cd /etc
+
+ls *.conf
+
+ls -l r??.*
+
+ls -l r*.*
+
+ls [u-x]*.*
+
+
+
+-- Slide 19
+
+cd /home/admdimdim/Imagens
+
+cd.. 
+
+cd /usr/bin
+
+cd /
+
+cd
+
+
+-- Slide 20
+
+cd
+
+mkdir ex2
+
+touch texto2
+touch texto3
+touch doc1
+touch doc2 
+
+
+-- Slide 21
+
+cd /etc
+
+cat passwd
+
+more passwd
+
+
+-- Slide 22
+
+gedit ~/.bashrc
+
+alias rm='rm -i'
+alias dir='ls -la'
+
+source ~/.bashrc
+
+
+-- Silde 23
+
+cd
+
+cat /etc/passwd > texto1
+
+cp texto1 ex1
+
+ls -l ex1
+
+
+-- Slide 24
+
+cd
+
+cd ex3
+
+cp /home/admdimdim/* .
+
+ls -l
+
+ls -l /home/admdimdim/
+
+cp -r /home/ admdimdim /* .
+
+ls -l
+
+
+-- Slide 25
+
+cd
+
+touch exemplo1.txt
+
+mkdir dir1
+
+mv exemplo1.txt dir1
+
+ls -l dir1
+
+
+
+-- Slide 26
+
+cd /home/admdimdim/ex2
+
+rm texto*
+
+rm -f doc*
+
+cd
+
+rm -r ex1
+
+rm -rf ex2
+
+
+
+-- Slide 28
+
+tail -5 /etc/group
+
+
+-- Slide 29
+
+cd /usr
+
+find . -name *.txt
+find . -name "file*"
+find . -iname "file*"
+find . -name "file*" -type f
+find . -name "file*" -type d
+
+
+-- Slide 33
+
+df  -Th
+
+
+-- Slide 36
+
+grep root /etc/passwd
+
+grep -R Ola
+
+
+-- Slide 37
+
+grep limit /etc/*.conf
+
+grep -R localhost /usr/bin
+
