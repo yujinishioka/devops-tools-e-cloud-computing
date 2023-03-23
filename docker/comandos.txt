@@ -1,0 +1,345 @@
+
+
+-- Slide 13
+
+https://linuxways.net/centos/what-is-the-difference-between-lxc-lxd-and-docker-containers/
+https://www.educba.com/lxc-vs-docker/
+https://www.upguard.com/blog/docker-vs-lxc
+https://medium.com/@harsh.manvar111/lxc-vs-docker-lxc-101-bd49db95933a
+
+
+
+-- Slide 26
+https://docs.docker.com
+
+
+-- Slide 27
+https://github.com/docker
+
+
+-- Slide 28
+https://www.docker.com/products/docker-hub
+
+
+
+-- Slide 34
+https://www.docker.com/products/docker-hub
+
+
+
+-- Slide 36
+https://docs.docker.com/engine/reference/commandline/pull/
+
+
+
+-- Slide 39
+
+docker pull ubuntu
+
+
+-- Slide 41
+
+docker image ls
+
+ou antigo: docker images
+
+
+
+-- Slide 42
+
+docker container run ubuntu
+
+ou antigo: docker run ubuntu
+
+
+-- Slide 43
+
+docker container run ubuntu echo "Rodando Ubuntu"
+
+docker container run -it ubuntu /bin/bash
+
+
+-- Slide 46
+
+docker image ls
+
+docker container ls
+
+docker container ls -a
+
+
+-- Slide 47
+
+docker info
+
+docker version
+
+docker --help
+
+docker search <img>
+
+Ex.: 
+docker search ubuntu
+
+
+
+-- Slide 49
+
+docker pull centos
+
+docker image list
+
+
+-- Slide 50
+
+docker container run --name linux_mobile -it -e TZ=America/Sao_Paulo centos /bin/bash
+
+date
+pwd
+whoami
+ls
+
+
+-- Slide 51
+
+mkdir arq_transf
+
+cd arq_transf
+
+touch primeiro_arq.txt 
+
+vi primeiro_arq.txt
+
+exit
+
+
+-- Slide 52
+
+docker container start linux_mobile -i
+
+
+-- Slide 54
+
+docker container run --name bd_portalweb -e MYSQL_ROOT_PASSWORD=@Fiap2tds2023 -d mysql/mysql-server:latest
+
+
+
+-- Slide 56
+
+docker container exec -it bd_portalweb bash
+
+mysql -u root -p
+
+Senha: 
+@Fiap2tds2023
+
+
+
+-- Slide 57
+
+select @@version;
+
+create database bdfiap;
+
+create user 'fiap'@'localhost' IDENTIFIED BY '@Fiap2tds2023’;
+
+grant all on bdfiap.* TO 'fiap'@'localhost’;
+
+flush privileges;
+
+show databases;
+
+
+-- Slide 58
+
+
+exit;
+
+mysql -u fiap -p
+
+Senha: 
+@Fiap2tds2023
+
+use bdfiap;
+
+create table t_aluno ( rm_aluno varchar(07), nm_aluno varchar(80), dt_nascimento date );
+
+insert into t_aluno (rm_aluno, nm_aluno, dt_nascimento) values ("RM3344", "Maria Linda", "2000-03-19");
+
+select * from t_aluno;
+
+exit
+
+
+-- Slide 59
+
+Para entrar novamente no Container:
+docker container exec -it bd_portalweb bash
+
+Parando o Container:
+docker container stop bd_portalweb
+
+
+
+-- Slide  61
+
+docker volume ls
+
+docker volume create logdata
+
+
+-- Slide 62
+
+docker volume ls
+
+
+Windows:
+
+Se for Docker Engine v20.10.16:
+\\wsl$\docker-desktop-data\data\docker\volumes
+
+Se for Docker Engine v19.03:
+\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\
+
+
+Mac Linux:
+/var/lib/docker/volumes
+
+
+*** ATENÇÃO ***
+No Mac o Docker roda em ema pequena máquina Virtual, então para acessar o /var/lib/docker/volumes rode esse comando em um Terminal:
+
+nc -U ~/Library/Containers/com.docker.docker/Data/debug-shell.sock
+
+ou
+
+screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
+
+Depende da Versão do Docker e da versão do SO do Mac
+
+
+ 
+-- Slide 63
+
+docker container run -it --name apl_web_dimdim -v logdata:/volumedimdim alpine
+
+ls -l
+
+
+
+-- Slide 64
+
+cd volumedimdim
+
+pwd
+
+echo Ola do Container > arquivo_linux_alpine.txt
+
+ls -l
+
+
+-- Slide 66
+
+docker container inspect linux_mobile
+
+
+-- Slide 67
+
+docker container stop apl_web_dimdim
+
+
+-- Slide 68
+
+docker container start apl_web_dimdim
+
+docker container restart apl_web_dimdim
+
+
+-- Slide 69
+
+docker container ls -a
+
+docker container rm linux_mobile
+
+
+-- Slide 70
+
+docker container stop $(docker container ls -q)
+
+docker container rm $(docker container ls -aq)
+
+docker image rm $(docker image ls -aq)
+
+docker volume rm $(docker volume ls -q)
+
+
+-- Slide 71
+
+docker system prune -a -f --volumes
+
+
+
+--- Desafio
+
+
+
+1) Primeiro crie um Volume Nomeado com o comando
+
+docker volume create nginx-data
+
+-- Verificar o Volume criado (Verifique a propriedade Mountpoint)
+docker volume inspect nginx-data
+
+
+2) Rode o Container
+
+docker run --name nginx -d -v nginx-data:/usr/share/nginx/html -p 80:80 nginx
+
+
+3) Acesse seu Web Browser em localhost:80 e verifique se o servidor funciona
+
+
+4) Altere os arquivos solicitados na pasta que é mostrada em Mountpoint no Volume nomeado em seu Host
+
+50x.html
+index.html
+
+
+
+Windows
+------------
+
+Se for Docker Engine v20.10.16:
+\\wsl$\docker-desktop-data\data\docker\volumes
+
+
+Se for Docker Engine v19.03:
+\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\
+
+
+
+MacOS
+----------
+
+No Mac o Docker roda em ema pequena máquina Virtual, então para acessar o /var/lib/docker/volumes rode:
+
+nc -U ~/Library/Containers/com.docker.docker/Data/debug-shell.sock
+
+ou
+screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
+
+Depende da Versão do Docker e Mac
+
+
+Diretório Mac e Linux:
+
+/var/lib/docker/volumes
+
+
+
+5) Rode o Container e teste as alterações
+
+
+-- Limpar Lab
+docker system prune -a -f --volumes
+
