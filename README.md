@@ -2,7 +2,18 @@
 
 Anotações das aulas de Devops Tools & Cloud Computing na FIAP
 
+* Cloud Computing
+* Docker
 * Microsoft Azure
+* Virtualização
+
+---
+
+## Aplicações
+
+Docker | Azure
+-------|-------
+<img src="https://brandeps.com/logo-download/D/Docker-logo-vector-01.svg" alt="Docker">|<img src="https://brandeps.com/icon-download/A/Azure-icon-vector-01.svg" alt="Azure">
 
 ---
 
