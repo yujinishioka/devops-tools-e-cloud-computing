@@ -1,0 +1,167 @@
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+--
+
+TempUmid_Centro_GothamCity
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+-- Obs: Essa linha de comando abaixo deve ser substituída para cada aluno - COPIE E COLE
+--
+
+HostName=IOT-operation-remote-rm9999.azure-devices.net;DeviceId=TempUmid_Centro_GothamCity;SharedAccessKey=JHuJWIUboTPbyNkQNepn4jIMn5wfLiVE4ZjY0QTA5s0=
+
+
+
+--
+-- Raspberry Pi Simulator: Teste de Envio e Recebimento
+--
+https://azure-samples.github.io/raspberry-pi-web-simulator/
+
+
+
+--
+-- Procura do Recurso a ser criado
+--
+
+Stream Analytics job 
+
+ou
+
+Trabalho do Stream Analytics
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+--
+
+dadosgothamcity
+
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end - Alias de Entrada
+--
+
+IoTHubInput
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end - Alias de Saída
+--
+
+powerbioutput
+
+StreamAnalyticsPF0841
+
+temphumid-gothamcity-pf0841
+
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+-- Obs: Fique atento aos nomes do Alias de Entrada Alias de Saída, 
+-- pois são as tabelas utilizadas nessa consulta
+--
+
+
+WITH AnomalyDetectionStep AS 
+( 
+SELECT 
+EVENTENQUEUEDUTCTIME AS time, 
+CAST(temperature AS float) AS temp, 
+AnomalyDetection_SpikeAndDip(CAST(temperature AS float), 99, 120, 'spikesanddips') OVER(LIMIT DURATION(second, 120)) AS SpikeAndDipScores 
+FROM IoTHubInput 
+where temperature is not null ) 
+SELECT 
+time, 
+temp, 
+CAST(GetRecordPropertyValue(SpikeAndDipScores, 'Score') AS float) AS Score, 
+CAST(GetRecordPropertyValue(SpikeAndDipScores, 'IsAnomaly') AS bigint) AS IsAnomaly 
+INTO powerbioutput 
+FROM AnomalyDetectionStep
+
+
+======================================
+
+Exemplo de consulta:
+
+SELECT EventProcessedUtcTime as datahoracompleta,
+               DATEPART ( dd , EventProcessedUtcTime ) as dia,
+               DATEPART ( mm , EventProcessedUtcTime ) as mes,
+               DATEPART ( yyyy , EventProcessedUtcTime ) as ano,
+               DATEPART ( hh , EventProcessedUtcTime ) as hora,  
+               DATEPART ( mi , EventProcessedUtcTime ) as minuto,
+               DATEPART ( ss , EventProcessedUtcTime ) as segundo,
+               DATEPART ( ms , EventProcessedUtcTime ) as milesegundo,
+               CAST(temperature AS float) as temperatura,
+               ROUND( CAST(temperature AS float), 2 ) as temperaturaArredondada,
+               CAST(humidity AS float) as humidade,
+               ROUND(CAST(humidity AS float), 2 ) as humidadeArredondada
+   INTO [YourOutputAlias]
+FROM  [YourIntputAlias]
+
+
+
+======================================
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+-- Integração com o powerbi
+--
+
+
+https://app.powerbi.com/
+
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+-- Integração com o powerbi
+--
+
+Temperatura
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+-- Integração com o powerbi
+--
+
+Análise de Temperatura
+
+Centro de Gotham City
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+-- Integração com o powerbi
+--
+
+Anomalias Detectadas
+
+Centro de Gotham City
+
+
+
+--
+-- Raspberry Pi Simulator: Preparação Back-end
+-- Integração com o powerbi
+--
+
+Score
+
+Centro de Gotham City
+
+
