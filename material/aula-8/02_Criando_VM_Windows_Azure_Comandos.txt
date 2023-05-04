@@ -1,0 +1,36 @@
+
+VM Windows: 
+
+
+10.0.0.5
+
+
+rg-mkt-dev-002
+
+vm-winserver-dev-southbrazil-001
+
+--
+
+Usuário: admwin
+Senha: Fiap@2tds2023
+
+--
+
+ssh admlnx@ip
+
+ping IP Privado do Windows
+
+
+ping IP Privado do Linux
+
+
+--
+
+echo Ola Linux > teste.txt
+
+--
+
+sftp admlnx@ip
+
+put teste.txt  /home/admlnx
+
