@@ -1,0 +1,552 @@
+-- Slide 6
+
+Azure CLI - Docker Hub: 
+https://hub.docker.com/_/microsoft-azure-cli
+
+Baixar a imagem e Rodar:
+docker run -it mcr.microsoft.com/azure-cli
+
+
+-- Slide 8
+
+https://docs.microsoft.com/pt-pt/cli/azure/?view=azure-cli-latest
+
+
+-- Slide 9
+
+https://aka.ms/installazurecliwindows
+
+
+
+-- Azure CLI - Instalação - INI +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Windows
+=======
+
+
+-- Slide 12
+
+az --version
+
+
+
+-- Slide 13
+
+Mac
+===
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+-- Documentação - Install Mac
+https://docs.microsoft.com/pt-br/cli/azure/install-azure-cli-macos?view=azure-cli-latest
+
+
+
+-- Slide 16
+
+brew update && brew install azure-cli
+
+
+-- Slide 18
+
+az --version
+
+
+Linux
+====
+
+Debian / Ubuntu
+---------------------
+
+-- Slide 19
+
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+az --version
+
+-- Documentação - Install Linux
+https://docs.microsoft.com/pt-br/cli/azure/install-azure-cli-apt?view=azure-cli-latest
+
+
+
+-- Slide 20
+
+RHEL / Fedora / CentOS / Oracle Linux
+--------------------------------------------------
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+
+-- Slide 21
+
+echo -e "[azure-cli]
+name=Azure CLI
+baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/azure-cli.repo
+
+
+-- Slide 22
+
+Recomendado em VM Locais executar antes:
+sudo systemctl stop packagekit
+
+
+sudo yum install azure-cli
+
+
+-- Slide 23
+
+az --version
+
+
+-- Azure CLI - Instalação - FIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+-- Slide 24
+
+az login
+
+
+
+-- Slide 29
+
+
+Documentação da Janela do Cloud Shell: 
+https://docs.microsoft.com/pt-br/azure/cloud-shell/using-the-shell-window
+
+
+
+-- Slide 30
+
+az help
+
+
+-- Slide 31
+
+az find "az vm"
+az find "az webapp"
+az find "az group"
+
+
+-- Slide 32
+
+Criar no Portal:
+rg-dimdim
+rg-vendebem
+
+
+Executar no Terminal:
+az group list
+
+
+-- Slide 33
+
+echo "Entre com o nome do Grupo de Recursos:" &&
+read resourceGroupName &&
+az group show --name $resourceGroupName
+
+-- Comando em uma linha:
+echo "Entre com o nome do Grupo de Recursos:" && read resourceGroupName && az group show --name $resourceGroupName
+
+
+-- Slide 34
+
+echo "Entre com o Nome do Grupo de Recursos:" &&
+read resourceGroupName &&
+echo "Entre com a localizacao (ex brazilsouth):" &&
+read location &&
+az group create --name $resourceGroupName --location $location
+
+
+-- Comando em uma linha:
+echo "Entre com o Nome do Grupo de Recursos:" && read resourceGroupName && echo "Entre com a localizacao (ex brazilsouth):" && read location && az group create --name $resourceGroupName --location $location
+
+
+Informe:
+rg-corporacao
+brazilsouth
+
+
+
+-- Slide 35
+
+echo "Entre com o nome do Grupo de Recursos:" &&
+read resourceGroupName &&
+az group delete --name $resourceGroupName
+
+
+-- Comando em uma linha:
+echo "Entre com o nome do Grupo de Recursos:" && read resourceGroupName && az group delete --name $resourceGroupName
+
+
+Informe:
+rg-corporacao
+
+
+
+-- Slide 36
+
+
+-- Comando em uma linha:
+for i in `az group list -o tsv --query [].name`; do if [ "$(az resource list -g $i -o tsv)" ]; then echo "$i nao esta vazio"; else az group delete -n $i -y --no-wait; fi; done
+
+
+-- Código formatado --
+FOR i in `az group list -o tsv --query [].name`; DO
+IF [ "$(az resource list -g $i -o tsv)" ]; THEN 
+   echo "$i nao esta vazio";
+ELSE 
+  az GROUP DELETE -n $i -y --no-wait; 
+FI;
+done
+-- Código formatado --
+
+
+
+
+-- Slide 38
+
+az account list
+
+
+-- Slide 40
+
+az account list-locations
+
+az account list-locations --output table > datacenters.txt
+
+
+
+-- Slide 41
+
+Alternativa: 
+cat datacenters.txt | more
+
+
+Valor a ser copiado:
+brazilsouth
+
+
+
+-- Slide 42
+
+az vm image list --all -p canonical --output table > vmsubuntu.txt-- Slide 43
+
+Valor copiado:
+Canonical:UbuntuServer:19_04-gen2:19.04.201908230
+
+
+
+-- Slide 44
+
+az vm list-sizes -l brazilsouth --output table > vmsizes.txt
+
+
+
+Alternativa:
+cat vmsubuntu.txt | more   
+
+
+Valor copiado:
+Standard_B2s
+
+
+-- Slide 45
+
+az group create --name rg-vmubuntu --location brazilsouth
+
+
+-- Slide 47
+
+
+az vm create\
+    --resource-group rg-vmubuntu \
+    --name vm-ubuntu \
+    --image Canonical:UbuntuServer:19_04-gen2:19.04.201908230 \
+    --size Standard_B2s \
+    --vnet-name nnet-linux \
+    --nsg nsgsr-linux \
+    --public-ip-address pip-ubuntu \
+    --authentication-type password \
+    --admin-username admlnx \
+    --admin-password Fiap@2tds2023
+
+
+-- Comando em uma linha:
+az vm create --resource-group rg-vmubuntu --name vm-ubuntu --image Canonical:UbuntuServer:19_04-gen2:19.04.201908230 --size Standard_B2s --vnet-name nnet-linux --nsg nsgsr-linux --public-ip-address pip-ubuntu --authentication-type password --admin-username admlnx --admin-password Fiap@2tds2023
+
+
+
+-- Slide 49
+
+IP Copiado:
+
+
+
+-- Slide 51
+
+az network nsg rule create \
+     --resource-group rg-vmubuntu \
+     --nsg-name nsgsr-linux \
+     --name port_80 \
+     --protocol tcp \
+     --priority 1010 \
+     --destination-port-range 80
+
+
+-- Comando em uma linha:
+az network nsg rule create --resource-group rg-vmubuntu --nsg-name nsgsr-linux --name port_80 --protocol tcp --priority 1010 --destination-port-range 80
+
+
+
+-- Slide 52
+
+
+Credenciais de acesso: 
+admlnx
+Fiap@2tds2023
+
+
+ssh admlnx@IP
+
+
+
+-- Slide 54
+
+
+
+echo "Entre com o nome do Grupo de Recursos:" &&
+read resourceGroupNamex &&
+echo "Informe o nome da VM:" &&
+read vmnamex &&
+echo "Informe o nome do disco:" &&
+read disknamex &&
+echo "Informe o tamanho do disco (em GB - somente números):" &&
+read disksizex &&
+echo "Escolha o tipo do disco:" &&
+select disktypex in "Premium_LRS" "StandardSSD_LRS " "Standard_LRS"; do echo "Escolhido $disktypex"; break; done &&
+az vm disk attach --resource-group $resourceGroupNamex  --vm-name $vmnamex --name $disknamex --size-gb $disksizex  --sku $disktypex --new
+
+
+-- Formatação do Código --
+echo "Entre com o nome do Grupo de Recursos:" && READ resourceGroupNamex && 
+echo "Informe o nome da VM:" && READ vmnamex && 
+echo "Informe o nome do disco:" && READ disknamex && 
+echo "Informe o tamanho do disco (em GB - somente números):" && READ disksizex && 
+echo "Escolha o tipo do disco:" &&
+SELECT disktypex in "Premium_LRS" "StandardSSD_LRS " "Standard_LRS";
+  DO echo "Escolhido $disktypex";
+  BREAK;
+  DONE 
+&& az vm disk attach --resource-group $resourceGroupNamex  --vm-name $vmnamex --name $disknamex --size-gb $disksizex  --sku $disktypex --new
+-- Formatação do Código --
+
+
+
+Informe:
+
+rg-vmubuntu
+vm-ubuntu
+disk-vm-ubuntu-Data-02
+10
+Tipo do disco (seleção) - Exemplo: 3
+
+
+-- Slide 56
+
+az vm get-instance-view -g rg-vmubuntu -n vm-ubuntu
+
+
+
+
+-- Slide 57
+
+
+-->
+--> Antes de executar verificar os tamanhos das VMs disponíveis e se for o caso, atualizar o Script
+--> 
+
+echo "Entre com o nome do Grupo de Recursos:" &&
+read resourceGroupNamex &&
+echo "Informe o nome da VM:" &&
+read vmnamex &&
+echo "Escolha o novo tamanho:" &&
+select vmsizex in  "01 CPU / 2GB RAM" "02 CPUs / 8GB RAM" "04 CPUs / 16GB RAM"; do case $vmsizex in "01 CPU / 2GB RAM") export vmsizex="Standard_B1ms";;  "02 CPUs / 8GB RAM") export vmsizex="Standard_D2s_v3";; "04 CPUs / 16GB RAM") export vmsizex="Standard_B4ms";; esac; break; done &&
+az vm resize -g $resourceGroupNamex -n $vmnamex --size $vmsizex
+
+
+
+-- Formatação do Código --
+echo "Entre com o nome do Grupo de Recursos:" && READ resourceGroupNamex && 
+echo "Informe o nome da VM:" && READ vmnamex && 
+echo "Escolha o novo tamanho:" &&
+SELECT vmsizex in "01 CPU / 2GB RAM" "02 CPUs / 8GB RAM" "04 CPUs / 16GB RAM";
+DO CASE $vmsizex in "01 CPU / 2GB RAM") export vmsizex="Standard_B1ms";
+  ;
+"02 CPUs / 8GB RAM") export vmsizex="Standard_D2s_v3";
+  ;
+"04 CPUs / 16GB RAM") export vmsizex="Standard_B4ms";
+  ;
+ESAC;
+BREAK;
+DONE && 
+az vm resize -g $resourceGroupNamex -n $vmnamex --size $vmsizex
+-- Formatação do Código --
+
+
+
+Informe:
+rg-vmubuntu
+vm-ubuntu
+Tamanho da VM (seleção) - Exemplo: 1
+
+
+-- Slide 59
+
+
+echo "Entre com o nome do Grupo de Recursos:" &&
+read resourceGroupNamex &&
+echo "Informe o nome da VM:" &&
+read vmnamex &&
+echo "Número da porta a ser aberta:" &&
+read vmopenportx &&
+az vm open-port --port $vmopenportx --resource-group $resourceGroupNamex --name $vmnamex
+
+
+Informe:
+
+rg-vmubuntu
+vm-ubuntu
+8080
+
+
+
+-- Slide 60
+
+echo "Informe o nome da VM para o Gerenciamento:" &&
+read vmnamex &&
+echo "Informe o nome do Grupo de Recursos:" &&
+read groupx &&
+select funcaox in "Parar" "Desalocar" "Iniciar"; do case $funcaox in "Parar") export funcaox=stop;; "Desalocar") export funcaox=deallocate ;;"Iniciar") export funcaox=start ;; esac; break; done &&
+az vm $funcaox --name $vmnamex --resource-group $groupx
+
+
+
+-- Formatação do Código --
+echo "Informe o nome da VM para o Gerenciamento:" && READ vmnamex && 
+echo "Informe o nome do Grupo de Recursos:" && READ groupx &&
+SELECT funcaox in "Parar" "Desalocar" "Iniciar";
+DO CASE $funcaox in "Parar") export funcaox=STOP;
+ ;
+"Desalocar") export funcaox=DEALLOCATE ;
+ ;
+"Iniciar") export funcaox= START ;
+ ;
+ESAC;
+BREAK;
+DONE && 
+az vm $funcaox --name $vmnamex --resource-group $groupx
+-- Formatação do Código --
+
+
+Informe:
+vm-ubuntu
+rg-vmubuntu
+Escolha a ação na lista - Exemplo: 1
+
+
+-- Slide 61
+
+--
+-- Na criação da VM Kali Linux é esperado dois erros:  
+-- 1) A imagem do Script não está mais disponível. É necessário procurar uma imagem mais atual
+-- 2) É necessário aceitar os termos da imagem antes de criar
+--
+
+
+## Variáveis
+grupox="rg-lnx-new-tech" &&
+locationx="brazilsouth" &&
+## Criação do Grupo de Serviços
+az group create --name $grupox --location $locationx  &&
+## Dados da VM
+echo "Informe o nome da VM:" &&
+read vmnamex &&
+echo "Escolha o tipo da imagem:" &&
+select vmtypex in "Oracle 7.6" "Ubuntu 20" "Kali Linux"; do case $vmtypex in "Oracle 7.6") export vmtypex="Oracle:Oracle-Linux:7.6:7.6.2";; "Ubuntu 20") export vmtypex="Canonical:0001-com-ubuntu-server-focal:20_04-lts:20.04.202010140";; "Kali Linux") export vmtypex="kali-linux:kali-linux:kali:2019.2.0";; esac; break; done &&
+echo "Informe o tamanho do disco (em GB - somente numeros):" &&
+read disksizex &&
+echo "Informe o usuário:" &&
+read usuariox &&
+echo "Informe a senha:" &&
+read senhax &&
+az vm create --resource-group $grupox --name $vmnamex --image $vmtypex --size Standard_B1ms --data-disk-sizes-gb $disksizex --storage-sku Standard_LRS --admin-username $usuariox --admin-password $senhax
+
+
+Informe:
+vm-lnx-new-tech
+Escolha a ação na lista
+10
+admlnx
+Fiap@2tds2023
+
+
+-- Obter informações sobre a VM:
+az vm get-instance-view -g rg-lnx-new-tech -n vm-lnx-new-tech
+
+
+
+
+-- Slide 62
+
+
+--> Antes de executar altere o nome do App com seu RM
+--> 
+--> Antes de executar verificar se já existe um Plano de Serviço, podemos utilizar o App no modo gratuito com somente um Plano de Serviço
+--> 
+
+
+## Variaveis do Script
+rg=rg-app-quiz &&
+location=brazilsouth &&
+appServicePlanName=plan-app-quiz &&
+webAppName=appquizrm9999 &&
+codigoFonte=https://github.com/profjoaomenk/jsQuiz.git &&
+sku=F1 &&
+## Cria um novo Grupo de Recursos
+az group create --name $rg --location $location &&
+## Cria um novo Plano de Serviço para o App
+az appservice plan create --name $appServicePlanName \
+--location $location \
+--resource-group $rg \
+--sku $sku &&
+## Cria um novo Servico de Aplicativo
+az webapp create -g rg-app-quiz \
+-p $appServicePlanName \
+-n $webAppName \
+--deployment-source-url  https://github.com/profjoaomenk/jsQuiz.git
+
+
+-- Listar informações sobre o Host em Nuvem:
+az webapp config hostname list --resource-group rg-app-quiz --webapp-name appquizrm9999
+
+
+
+-- Slide 64
+
+
+az group delete --name rg-vmubuntu -y
+az group delete --name NetworkWatcherRG -y
+az group delete --name rg-lnx-new-tech -y
+az group delete --name rg-app-quiz -y
+az group delete --name cloud-shell-storage-eastus -y
+
+
+-- Deletar todos os Grupos de Recursos em uma linha somente:
+az group delete --name rg-vmubuntu -y ; az group delete --name NetworkWatcherRG -y ; az group delete --name rg-lnx-new-tech -y ; az group delete --name rg-app-quiz -y ; az group delete --name cloud-shell-storage-eastus -y
+
+

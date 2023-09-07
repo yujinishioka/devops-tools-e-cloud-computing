@@ -1,0 +1,187 @@
+
+-- Slide 7
+
+Documentação Multimodelos:
+https://docs.microsoft.com/pt-br/azure/azure-sql/multi-model-features
+
+
+-- Slide 11
+
+Preços SQL Azure:
+https://azure.microsoft.com/pt-br/pricing/calculator/
+https://azure.microsoft.com/pt-br/pricing/details/azure-sql-database/single/#pricing
+
+
+-- Slide 16
+
+rg-depto-financeiro
+
+
+-- Slide 17
+
+sqldb-financeiro-001
+
+
+-- Slide 19
+
+servidor-sqldb-rm9999
+
+
+-- Slide 20
+
+adm-sqldb-dimdim
+Fiap@2tds2023
+
+
+-- Slide 21
+East (US)
+
+
+
+-- Slide 40
+
+Depto Financeiro
+Banco de Dados SQLServer
+
+
+-- Slide 51
+
+Senha:
+Fiap@2tds2023
+
+
+
+-- Slide 52
+
+SELECT * FROM sys.databases;
+
+
+--
+-- Usuário conectado
+--
+SELECT SYSTEM_USER  
+
+DECLARE @sys_usr CHAR(30);  
+SET @sys_usr = SYSTEM_USER;  
+SELECT 'O usuario corrente é: '+ @sys_usr as usuario_conectado;  
+GO 
+
+--
+-- Versão do Banco de dados Azure
+--
+SELECT @@version as version
+
+SELECT serverproperty('ProductVersion') as [version], serverproperty('Edition') as [edition]
+
+
+SELECT getdate();
+
+
+
+
+-- Slide 54
+
+SELECT * 
+  FROM sys.time_zone_info
+WHERE NAME LIKE '%South America%';
+
+
+
+-- Slide 55
+
+SELECT  CURRENT_TIMEZONE ( ) as Time_Zone_Atual, 
+        GETDATE() as UTC_Atual,
+        GETDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'E. South America Standard Time' as UTC_Brazil;
+
+
+-- Slide 73
+
+IP_HOME
+
+
+-- Slide 74
+
+Regra Interna  
+198.1.1.0
+198.1.1.20
+
+
+-- Slide 77
+
+Senha:
+Fiap@2tds2023
+
+
+-- Slide 77
+
+select * from Clientes;
+
+select * from Documentos;
+
+
+
+-- Slide 82
+
+SELECT cli.nome, 
+		cli.email,
+		docs.TipoDocumento,
+		docs.NumeroDocumento
+  FROM clientes cli 
+  LEFT JOIN Documentos docs ON docs.IdCliente = cli.IdCliente
+
+
+-- Slide 84
+
+https://aka.ms/ssmsfullsetup
+
+
+-- Slide 86
+
+-- Para Mac / Linux
+https://docs.microsoft.com/pt-br/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15
+
+
+
+--
+-- Slide 90
+--
+
+Servidor: 
+servidor-sqldb-rm9999.database.windows.net
+
+Login:
+adm-sqldb-dimdim
+
+Password:
+Fiap@2tds2023
+
+
+-- Slide 93
+
+select * from Clientes;
+
+select * from Documentos;
+
+
+
+
+-- Slide 100
+
+Servidor 2:
+servidor-sqldb-002-rm9999
+
+Usuário:
+adm-sqldb-dimdim
+
+Senha:
+Fiap@2tds2023
+
+Localização:
+US West US 3
+
+
+-- Slide 108
+
+failover-rm9999
+
+

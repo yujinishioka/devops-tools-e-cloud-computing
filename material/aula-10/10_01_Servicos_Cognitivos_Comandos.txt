@@ -1,0 +1,175 @@
+
+
+
+-- Slide 12
+
+https://learn.microsoft.com/pt-br/azure/cognitive-services/
+
+
+
+-- Slide 13
+
+https://learn.microsoft.com/pt-BR/azure/cognitive-services/computer-vision/
+
+
+
+-- Slide 17
+
+https://github.com/profjoaomenk/react-app-cognitive-services.git
+
+
+
+-- Slide 18
+
+git clone https://github.com/profjoaomenk/react-app-cognitive-services.git
+
+cd react-app-cognitive-services
+
+
+
+-- Slide 19
+
+npm install
+
+
+
+-- Slide 20
+
+npm start
+
+
+
+-- Slide 21
+
+set NODE_OPTIONS=--openssl-legacy-provider && npm run start
+
+
+Ou
+
+set NODE_OPTIONS=--openssl-legacy-provider
+
+npm start
+
+
+-- Slide 27
+
+rg-computer-vision
+
+brazilsouth 
+
+know-image-rm9999
+
+Free F0
+
+
+-- Slide 30
+
+Cliente
+DimDim
+
+
+
+-- Slide 33
+
+
+Endpoint:
+https://know-image-pf0841.cognitiveservices.azure.com/
+
+Key 1:
+dcd3915a13e349c7a4825bde88362434
+
+
+
+-- Slide 34
+
+---export REACT_APP_AZURE_COMPUTER_VISION_KEY="REPLACE-WITH-YOUR-KEY"
+--export REACT_APP_AZURE_COMPUTER_VISION_ENDPOINT="REPLACE-WITH-YOUR-ENDPOINT"
+
+export REACT_APP_AZURE_COMPUTER_VISION_KEY="dcd3915a13e349c7a4825bde88362434"
+export REACT_APP_AZURE_COMPUTER_VISION_ENDPOINT="https://know-image-pf0841.cognitiveservices.azure.com/"
+
+
+-- Slide 35
+
+npm start
+
+
+
+
+
+-- Slide 41
+
+Nome do Recurso:
+know-image-rm99999
+
+
+Opcional:
+Api-EndPoint
+https://know-image-rm99999.cognitiveservices.azure.com/
+
+
+
+-- Slide 54
+
+
+python3 -m venv cogsrv-vision-env
+
+source cogsrv-vision-env/bin/activate
+
+
+-- Localmente no Windows --
+pip install virtualenv
+
+python -m venv cogsrv-vision-env
+
+cogsrv-vision-env\Scripts\activate.bat
+
+
+
+-- Slide 55
+
+pip install azure-cognitiveservices-vision-computervision
+
+
+-- Slide 56
+
+pip install pillow
+
+
+-- Slide 57
+
+git clone https://github.com/profjoaomenk/python-computer-vision
+
+
+-- Slide 61
+
+cd python-computer-vision
+
+ls -l
+
+
+
+-- Slide 63
+
+python3 ComputerVisionQuickstart.py
+
+
+-- Localmente no Windows --
+python ComputerVisionQuickstart.py
+
+
+
+-- Slide 64
+
+deactivate
+
+
+
+-- Slide 66
+
+--
+-- Para realizar o Purge no Recurso, caso deletado e necessário criar novamente logo em seguida
+--
+
+az cognitiveservices account purge --location  brazilsouth --resource-group rg-computer-vision --name know-image-rm9999
+

@@ -1,0 +1,140 @@
+
+
+SenhaProf@2tds
+
+
+-- Slide 6
+
+
+CREATE TABLE tb_vagas (
+    cd_vaga            NUMBER NOT NULL,
+    cd_estacionamento  NUMBER NOT NULL,
+    ds_localizacao     VARCHAR2(10) NOT NULL,
+    ds_andar           VARCHAR2(10) NOT NULL,
+    ds_disponivel      CHAR(1) NOT NULL
+);
+
+ALTER TABLE tb_vagas ADD CONSTRAINT tb_vagas_pk PRIMARY KEY ( cd_vaga );
+
+
+CREATE SEQUENCE SQ_TB_VAGAS
+ START WITH     1
+ INCREMENT BY   1
+ NOCACHE
+ NOCYCLE;
+
+INSERT INTO tb_vagas(cd_vaga, cd_estacionamento, ds_localizacao, ds_andar, ds_disponivel ) 
+VALUES (SQ_TB_VAGAS.nextval,1, 'A01', 'T', '0'); -- Não está disponível
+
+INSERT INTO tb_vagas(cd_vaga, cd_estacionamento, ds_localizacao, ds_andar, ds_disponivel ) 
+VALUES (SQ_TB_VAGAS.nextval,1, 'A02', 'T', '1'); -- Disponível
+
+commit;
+
+
+SELECT * FROM tb_vagas;
+
+
+-- Slide 7
+
+https://github.com/profjoaomenk/api-springboot-web-app.git
+
+
+
+-- Slide 9
+
+
+rg-api-webapp
+
+
+-- Altere para seu RM
+api-vaga-pf0841
+
+api-plan-pf0841
+
+
+
+
+-- Slide 21
+
+https://api-vaga-pf0841.azurewebsites.net
+
+
+
+-- Slide 22
+
+https://api-vaga-pf0841.azurewebsites.net/vagas
+
+
+
+-- Slide 23
+
+--> Selecione o método GET
+
+https://api-vaga-pf0841.azurewebsites.net/vagas
+
+
+
+-- Slide 24
+
+--> Selecione o método POST
+
+https://api-vaga-pf0841.azurewebsites.net/vagas
+
+
+==> Não esqueça de Clicar em: "Body", depois em "raw" e alterar de "text" para: "JSON"
+
+
+{
+  "idEstacionamento": 3,
+  "localizacao": "B03",
+  "andar": "3 ANDAR",
+  "disponivel": true
+}
+
+
+-- Slide 25
+
+SELECT * FROM tb_vagas;
+
+
+
+-- Slide 26
+
+--> Selecione o método PUT
+
+https://api-vaga-pf0841.azurewebsites.net/vagas/3
+
+
+==> Não esqueça de incluir o ID da vaga ao final da chamada, em nosso caso: 3
+
+
+
+{
+  "idEstacionamento": 3,
+  "localizacao": "B03",
+  "andar": "3 ANDAR",
+  "disponivel": false
+}
+
+
+
+-- Slide 27
+
+SELECT * FROM tb_vagas;
+
+
+
+-- Slide 28
+
+--> Selecione o método DELETE
+
+https://api-vaga-pf0841.azurewebsites.net/vagas/3
+
+==> Não esqueça de incluir o ID da vaga ao final da chamada, em nosso caso: 3
+
+
+-- Slide 29
+
+SELECT * FROM tb_vagas;
+
