@@ -1,0 +1,103 @@
+
+Eclipse
+=====
+
+
+-- Slide 11
+
+AzureSampleAppRM9999
+
+
+
+-- Slide 13
+
+Criar arquivo:
+index.jsp
+
+
+<body>
+  <b><% out.println("Saiu do meu Eclipse: Azure web App"); %></b>
+</body>
+
+
+-- Slide 16
+
+
+localhost:8080/AzureSampleAppRM9999
+
+
+
+-- Slide 26
+
+Informe:
+AzureSampleAppRM9999
+
+
+Escolha:
+Linux -> Java 11 -> Tomcat 9.0
+
+
+
+-- Slide 27
+
+Informe:
+PlanoServico
+
+
+Escolha:
+Brazil South
+Free_F1
+
+
+Informe:
+rg-sample-app
+
+
+-- Slide 32
+
+https://azuresampleapprm9999.azurewebsites.net/
+
+
+
+
+
+VSC
+===
+
+
+-- Slide 44
+
+git clone https://github.com/profjoaomenk/spring-boot-hello.git
+
+
+-- Slide 47
+
+spring-hello-rm9999
+
+
+
+-- Slide 48
+
+rg-spring-hello
+
+
+
+-- Slide 53
+
+PlanoServicoSpring
+
+
+-- Slide 62
+
+https://spring-hello-rm9999.azurewebsites.net/
+
+
+-- Slide 64
+
+mvn clean package
+
+
+-- Slide 65
+
+cp target/spring-boot-complete-0.0.1-SNAPSHOT.jar ~/Downloads
+

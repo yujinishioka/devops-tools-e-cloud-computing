@@ -1,0 +1,111 @@
+
+-- Slide 7
+
+az login
+
+
+-- Slide 8
+
+
+--> Altere para seu RM
+
+az group create --name rg-bcosql --location eastus
+
+az sql server create -l eastus -g rg-bcosql -n sqlserver-pf0841 -u admsql -p devops@Fiap2tds --enable-public-network true
+
+az sql db create -g rg-bcosql -s sqlserver-pf0841 -n dimdimdb --service-objective Basic --backup-storage-redundancy Local --zone-redundant false
+
+az sql server firewall-rule create -g rg-bcosql -s sqlserver-pf0841 -n AllowAll --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255
+
+
+
+-- Slide 10
+
+CREATE TABLE [dbo].[tb_transaction] (
+id BIGINT NOT NULL IDENTITY,
+date DATETIME NOT NULL, description VARCHAR(120) NOT NULL, type VARCHAR(255) NOT NULL,
+value DECIMAL(19,2) NOT NULL, user_id BIGINT NOT NULL, PRIMARY KEY (id)
+);
+
+CREATE TABLE [dbo].[tb_user] (
+id BIGINT NOT NULL IDENTITY, balance DECIMAL(19,2) NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY (id)
+);
+
+ALTER TABLE [dbo].[tb_transaction] ADD CONSTRAINT FK_USER_TRANSACTION FOREIGN KEY (user_id) REFERENCES [dbo].[tb_user] (id);
+
+
+
+select * from tb_transaction
+
+select * from tb_user
+
+-- Slide 17
+
+https://github.com/profjoaomenk/movtodimdim.git
+
+
+
+-- Slide 28
+
+--> Altere para seu RM
+
+movtodimdimpf0841
+
+
+
+-- Slide 29
+
+planMovto
+
+
+
+-- Slide 43
+
+whoami
+
+pwd
+
+ls -l
+
+
+
+-- Slide 44
+
+cd /home/LogFiles/Application
+
+-- Verifique o nome do arquivo do log, será diferente
+cat spring.lw0sdlwk00000K.log
+
+cat /home/site/deployments/tools/deploy.sh
+
+cd /home/site/wwwroot
+
+ls -l
+
+
+
+-- Slide 46
+
+movtodimdimAppInsights
+
+
+
+-- Slide 50
+
+git clone https://github.com/profjoaomenk/movtodimdim.git
+
+
+
+-- Slide 52
+
+--> Altere para seu RM
+
+movtodimdimpf0841
+
+
+
+-- Slide 53
+
+planMovto
+
+

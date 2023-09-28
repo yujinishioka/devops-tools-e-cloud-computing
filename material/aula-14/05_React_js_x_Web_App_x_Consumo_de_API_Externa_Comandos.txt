@@ -1,0 +1,27 @@
+
+
+
+API utilizada: 
+https://openweathermap.org/api
+
+Registro para ter a chave da API:
+https://home.openweathermap.org/users/sign_up
+
+
+https://github.com/profjoaomenk/weatherApp-react-call-api.git
+
+
+rg-clima
+
+clima-rm9999
+
+Node 16 LTS
+
+Windows
+
+Brazil South
+
+planoClima
+
+F1
+

@@ -1,0 +1,78 @@
+
+
+-- Slide 5
+
+https://github.com/profjoaomenk/life-share.git
+
+
+
+-- Slide 7
+
+az account show
+
+Se não estiver conectado:
+az login
+
+
+
+-- Slide 8
+
+az group create --name rg-bcosql --location brazilsouth
+
+az sql server create -l brazilsouth -g rg-bcosql -n sqlserver-rm9999 -u admsql -p devops@Fiap2tds --enable-public-network true
+
+az sql db create -g rg-bcosql -s sqlserver-rm9999 -n lifeshare --service-objective Basic --backup-storage-redundancy Local --zone-redundant false
+
+az sql server firewall-rule create -g rg-bcosql -s sqlserver-rm9999 -n AllowAll --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255
+
+
+
+-- Slide 9
+
+Usuário:
+admsql
+
+Senha:
+devops@Fiap2tds
+
+
+
+-- Slide 10
+
+CREATE TABLE Tb_Empresa (
+    [id] [int] IDENTITY(1,1) NOT NULL,
+    [Dt_Entrada] datetime2 NOT NULL,
+    [Nome] [nvarchar](80) NOT NULL,
+    [Status] [int]  NOT NULL,
+PRIMARY KEY CLUSTERED 
+( [id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+SELECT * FROM tb_empresa;
+
+
+
+-- Slide 13
+
+
+rg-lifeshare
+
+lifeshare-rm9999
+
+planLifeshare
+
+=> Escolha .NET 6 na Pilha de runtime, apesar do App ter sido feito em 3.1
+
+
+-- Slide 22
+
+ASPNETCORE_ENVIRONMENT
+Development
+
+
+-- Slide 26
+
+SELECT * FROM tb_empresa;
+
